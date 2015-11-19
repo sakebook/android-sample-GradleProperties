@@ -10,13 +10,53 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        buildConfigField("boolean", "FROM_PROPERTIES", "${from_properties}")
+        buildConfigField("String", "HOGE_API_KEY", "\"${hoge_api_key}\"")
+        buildConfigField("int", "HOGE_VERSION", "${hoge_version}")
+        buildConfigField "int[]", "HOGE_ARRAY", "{1, 2, 3}"
+        buildConfigField "String[]", "PROPERTIES_ARRAY", "${hoge_array}"
+        buildConfigField("double", "HOGE_PI", "${hoge_pi}")
+        buildConfigField("java.util.ArrayList<String>", "HUGA_LIST", "new java.util.ArrayList<>()")
+
+        resValue "dimen", "properties_dimen", "${properties_margin}"
+        resValue "color", "properties_color", "${properties_color}"
+        resValue "string", "hoge_host", "${hoge_host}"
+        resValue "string", "hoge_meta_id", "${hoge_meta_id}"
+        resValue "string", "hoge_meta_key", "${hoge_meta_key}"
+
+        manifestPlaceholders =
+                [
+                        meta_value: "${hoge_meta_value}",
+                        base_app_name: "@string/hoge_id"
+                ]
     }
+
+    productFlavors {
+        log {
+            manifestPlaceholders = [meta_value: "@string/hoge_id"]
+        }
+        adhoc {
+            manifestPlaceholders = [meta_value: "@string/hoge_id"]
+            resValue "string", "hoge_id", "adhoc"
+        }
+        production {
+            resValue "string", "hoge_host", "${hoge_prod_host}"
+            manifestPlaceholders = [base_app_name: "@string/app_name"]
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            manifestPlaceholders = [meta_value: "@string/hoge_id"]
+            manifestPlaceholders = [base_app_name: "debug"]
+            resValue "string", "hoge_id", "hoge_id"
+        }
     }
+
 }
 
 dependencies {

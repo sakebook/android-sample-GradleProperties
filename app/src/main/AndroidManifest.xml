@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="${base_app_name}"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity android:name=".MainActivity" >
@@ -15,6 +15,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="hoge_key"
+            android:value="@string/hoge_meta_key" />
+
+        <meta-data
+            android:name="hoge_id"
+            android:value="@string/hoge_meta_id" />
+
+        <meta-data
+            android:name="hoge_value"
+            android:value="${meta_value}" />
     </application>
 
 </manifest>
